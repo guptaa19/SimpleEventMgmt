@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Event_Activation_Error</fullName>
+    <active>true</active>
+    <errorConditionFormula>(Total_Tickets__c &lt;= 0 ||  Tickets_Remaining__c &lt;= 0) &amp;&amp;  Is_Active__c = true</errorConditionFormula>
+    <errorMessage>you cannot activate an event without atleast an active ticket type with quantity greater than 0</errorMessage>
+</ValidationRule>
