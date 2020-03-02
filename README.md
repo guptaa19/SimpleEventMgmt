@@ -1,7 +1,9 @@
 A Simple Event Managment App in Salesforce
 
 Steps :
+
     1. Login to Salesforce org.
+	
     2. Click on App Launcher and select "A Simple Event Management" Lightning App.
     3. click on Events tab.
     4. Create a New Event by clicking New button on Events List view page.
