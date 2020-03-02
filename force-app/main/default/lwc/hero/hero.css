@@ -1,0 +1,14 @@
+:host {
+    position: relative;
+    display: block;
+}
+
+.c-hero {
+    position: relative;
+    top: -28px;
+}
+
+.c-hero-img {
+    width: 100%;
+    height: 225px;   
+}
