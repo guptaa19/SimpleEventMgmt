@@ -18,4 +18,3 @@ Steps :
     13. Click Save. 
     14. Wait for the greeting to appear. 
     
-    ![Community View](https://github.com/guptaa19/SimpleEventMgmt/blob/master/Screen%20Shot%202020-03-03%20at%2010.11.29%20AM.png)
