@@ -2,71 +2,95 @@
     <!-- <template for:each={ticketTypes} for:item="tt">
         We Are only supporting one ticket type at this time. 
     </template> -->
-    <template if:true={ticketType}>
+    <template if:true={event}>
             <article class="slds-card">
-                    <div class="slds-card__body slds-card__body_inner">
-                        <div class="slds-grid slds-wrap ltc_regular-font">
-                                <div class="slds-col slds-size_8-of-12 slds-p-bottom_x-small ltc_font-weight-bold">
-                                        <h1>{ticketType.name}&nbsp;
-                                            <lightning-formatted-number value={ticketType.salePrice} format-style="currency" currency-code="USD"></lightning-formatted-number>
-                                        </h1>
-                                </div>
-                                <div class="slds-col slds-size_4-of-12">
-                                    <div class="slds-grid slds-grid_align-end">
-                                            <div class="slds-col">
-                                                    <lightning-combobox
-                                                        name="Quantity"
-                                                        placeholder="Select Quantity"
-                                                        options={ticketType.options}
-                                                        onchange={handleChange} variant="label-hidden" data-field="numberOfTickets" value={attendee.numberOfTickets}></lightning-combobox>
-                                            </div>
-                                            <div class="slds-col">
-                                                    <lightning-button variant="brand" label="Add" title="Select Ticket" onclick={handleClick} class="slds-m-left_x-small"></lightning-button>
-                                            </div>
-                                    </div>
-                                </div>
-                                <div class="slds-col slds-size_12-of-12 slds-p-top_x-small">
-                                    <lightning-formatted-rich-text value={ticketType.description}></lightning-formatted-rich-text>
-                                </div>
-                        </div>
+                    <div class="slds-card__header slds-grid">
+                        <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                            <div class="slds-media__body">
+                                <h2 class="slds-card__header-title">
+                                    <a href="javascript:void(0);" class="slds-card__header-link slds-truncate" title="Outer Card Header">
+                                        <span class="ltc_font-weight-bold">{event.fields.Name.value}&nbsp;(<lightning-formatted-date-time value={event.fields.Start_Date__c.value}></lightning-formatted-date-time>&nbsp;-&nbsp;<lightning-formatted-date-time value={event.fields.End_Date__c.value}></lightning-formatted-date-time>)</span>
+                                    </a>
+                                </h2>
+                            </div>
+                        </header>
                     </div>
-                    <footer class="slds-card__footer"></footer>
+                    <div class="slds-card__body slds-card__body_inner">
+                        <div class="slds-grid">
+                            <div class="slds-col slds-size_12-of-12 slds-p-top_x-small slds-p-bottom_medium ltc_regular-font">
+                                    <lightning-formatted-rich-text value={event.fields.Overview__c.value}></lightning-formatted-rich-text>
+                            </div>
+                        </div>
+                            <template if:true={ticketType}>
+                                    <article class="slds-card slds-card_boundary">
+                                            <div class="slds-card__body slds-card__body_inner">
+                                                <div class="slds-grid slds-wrap ltc_regular-font">
+                                                        <div class="slds-col slds-size_8-of-12 slds-p-bottom_x-small ltc_font-weight-bold">
+                                                                <h1>{ticketType.name}&nbsp;
+                                                                    <lightning-formatted-number value={ticketType.salePrice} format-style="currency" currency-code="USD"></lightning-formatted-number>
+                                                                </h1>
+                                                        </div>
+                                                        <div class="slds-col slds-size_4-of-12">
+                                                            <div class="slds-grid slds-grid_align-end">
+                                                                    <div class="slds-col">
+                                                                            <lightning-combobox
+                                                                                name="Quantity"
+                                                                                placeholder="Select Quantity"
+                                                                                options={ticketType.options}
+                                                                                onchange={handleChange} variant="label-hidden" data-field="numberOfTickets" value={attendee.numberOfTickets}></lightning-combobox>
+                                                                    </div>
+                                                                    <div class="slds-col">
+                                                                            <lightning-button variant="brand" label="Add" title="Select Ticket" onclick={handleClick} class="slds-m-left_x-small"></lightning-button>
+                                                                    </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="slds-col slds-size_12-of-12 slds-p-top_x-small">
+                                                            <lightning-formatted-rich-text value={ticketType.description}></lightning-formatted-rich-text>
+                                                        </div>
+                                                </div>
+                                            </div>
+                                            <footer class="slds-card__footer"></footer>
+                                    </article>
+                            </template>
+                    </div>
+                    <footer class="slds-card__footer">
+                    </footer>
             </article>
     </template>
     <template if:true={showModal}>
-        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_small" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1">
-            <div class="slds-modal__container">
-                <header class="slds-modal__header">
-                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close">
-                        <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
-                        <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#close"></use>
-                        </svg>
-                        <span class="slds-assistive-text">Close</span>
-                    </button>
-                    <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Attendee Details</h2>
-                </header>
-                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
-                    <div class="slds-grid slds-wrap">
-                            <div class="slds-col slds-size_1-of-1 ltc_font-weight-bold">
-                                <p>Please fill out the form and click Register.</p>
-                            </div>
-                            <div class="slds-col slds-size_1-of-1 ltc_regular-font">
-                                <lightning-input type="text" label="Name" data-field="name" onchange={handleChange} value={attendee.name}></lightning-input>
-                            </div>
-                            <div class="slds-col slds-size_1-of-1 ltc_regular-font">
-                                <lightning-input type="email" label="E-mail address" data-field="email" onchange={handleChange} value={attendee.email}></lightning-input>
-                            </div>
+            <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_small" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close">
+                            <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true">
+                            <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#close"></use>
+                            </svg>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Attendee Details</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        <div class="slds-grid slds-wrap">
+                                <div class="slds-col slds-size_1-of-1 ltc_font-weight-bold">
+                                    <p>Please fill out the form and click Register.</p>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 ltc_regular-font">
+                                    <lightning-input type="text" label="Name" data-field="name" onchange={handleChange} value={attendee.name}></lightning-input>
+                                </div>
+                                <div class="slds-col slds-size_1-of-1 ltc_regular-font">
+                                    <lightning-input type="email" label="E-mail address" data-field="email" onchange={handleChange} value={attendee.email}></lightning-input>
+                                </div>
+                        </div>
+                        <!-- <template if:true={isLoading}>
+                                <lightning-spinner alternative-text="Loading" size="medium" variant="brand"></lightning-spinner>
+                        </template> -->
                     </div>
-                    <!-- <template if:true={isLoading}>
-                            <lightning-spinner alternative-text="Loading" size="medium" variant="brand"></lightning-spinner>
-                    </template> -->
+                    <footer class="slds-modal__footer">
+                        <lightning-button variant="neutral" label="Cancel" title="Cancel" onclick={hideModal}></lightning-button>
+                        <lightning-button variant="brand" label="Register" title="Register" onclick={register} class="slds-m-left_x-small"></lightning-button>
+                    </footer>
                 </div>
-                <footer class="slds-modal__footer">
-                    <lightning-button variant="neutral" label="Cancel" title="Cancel" onclick={hideModal}></lightning-button>
-                    <lightning-button variant="brand" label="Register" title="Register" onclick={register} class="slds-m-left_x-small"></lightning-button>
-                </footer>
-            </div>
-        </section>
-        <div class="slds-backdrop slds-backdrop_open"></div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
     </template>
 </template>

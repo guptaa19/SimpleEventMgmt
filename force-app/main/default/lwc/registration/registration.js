@@ -2,6 +2,16 @@ import { LightningElement, track, wire } from 'lwc';
 import getTicketTypes from '@salesforce/apex/EventsController.getTicketTypes';
 import createAttendee from '@salesforce/apex/EventsController.createAttendee';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import { getRecord } from 'lightning/uiRecordApi';
+
+const FIELDS = [
+    'Event__c.Name',
+    'Event__c.Start_Date__c',
+    'Event__c.Start_time__c',
+    'Event__c.End_Date__c',
+    'Event__c.End_Time__c',
+    'Event__c.Overview__c'
+];
 
 export default class Registration extends LightningElement {
 
@@ -17,6 +27,8 @@ export default class Registration extends LightningElement {
     showModal;
     @track
     isLoading;
+    @track
+    event;
 
     connectedCallback() {
         let urlString = new URL(window.location.href).searchParams;
@@ -33,6 +45,17 @@ export default class Registration extends LightningElement {
             this.error = error;
             this.ticketType = undefined;
         }
+    }
+
+    @wire(getRecord, { recordId: '$eventId', fields: FIELDS })
+    wiredEvent({error,data}) {
+        if (data) {
+            this.event = data;
+            this.error = undefined;
+        } else if (error) {
+            this.error = error;
+            this.event = undefined;
+        }    
     }
 
     handleClick() {

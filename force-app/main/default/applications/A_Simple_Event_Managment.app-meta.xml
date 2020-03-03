@@ -16,5 +16,4 @@
     <tabs>Ticket_Type__c</tabs>
     <tabs>standard-Contact</tabs>
     <uiType>Lightning</uiType>
-    <utilityBar>A_Simple_Event_Managment_UtilityBar</utilityBar>
 </CustomApplication>
